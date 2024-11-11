@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+<script>
+
+    /*let expCond=[{"idExpCon":1,"date":"2023-03-28","HeureDépart":"08:00","HeureArrivée":"10:00","Km":6}];*/
+    let meteo=[{"idMeteo":1,"Meteo":"Soleil"}, {"idMeteo":2,"Meteo":"Neige"},{"idMeteo":3,"Meteo":"Pluie"},{"idMeteo":4,"Meteo":"Brouillard"},{"idMeteo":5,"Meteo":"Verglas"},{"idMeteo":6,"Meteo":"Orage"},{"idMeteo":7,"Meteo":"Nuageux"},{"idMeteo":8,"Meteo":"Tempete de sable"}];
+    let Moniteur=[{"IdMoniteur":1,"Nom":"LEFEBRE","Prenom":"JEAN"},{"IdMoniteur":2,"Nom":"LOUIS","Prenom":"JEAN"},{"IdMoniteur":3,"Nom":"CLAUDE","Prenom":"LEROI"},{"IdMoniteur":4,"Nom":"MENSANH","Prenom":"KODJO"}];
+    let voiture=[{"idVoiture":1,"Marque":"Mercerdes"}, {"idVoiture":2,"Marque":"AUDI"},{"idVoiture":3,"Marque":"PEUGEOT"},{"idVoiture":4,"Marque":"RENAULT"},{"idVoiture":5,"Marque":"BMW"},{"idVoiture":6,"Marque":"JEEP"},{"idVoiture":7,"Marque":"TOYOTA"}];
+    let route=[{"idRoute":1,"routo":"Autoroute"},{"idRoute":2,"routo":"Route Communale"},{"idRoute":3,"routo":"Route Nationale"},{"idRoute":4,"routo":"Route Européenne"},{"idRoute":5,"routo":"Route Départementale"}];
+    let listExperience=new Array();
+
+//lecture données enregistrées localStorage
+let dataString=localStorage.getItem('listExperience');
+//console.log(dataString);
+if(dataString!=null){
+  listExperience=JSON.parse(dataString);
+}
+
+document.onreadystatechange=function(){
+if(document.readyState=="complete"){
+afficheListeConduite();	
+}
+}//fin onreadystatechange
+//console.log(listeExperience);
+
+/*function afficheDistance(){
+	if (listeExperience.length==0){
+		return 0;
+	}
+	if (listeExperience.length!=0){
+	var sum=0;
+		for (let i = 0; i < listeExperience.length; i++){
+			sum += parseInt(listeExperience[i]["kilom"]);
+		}
+	return sum;
+}
+}*/
+
+function afficheListeConduite(){
+
+  let kilomTotal=0;
+  let soleilTotal=0;
+  let nuageTotal=0;
+  let pluieTotal=0;
+  let brouillardTotal=0;
+  let neigeTotal=0;
+  let orageTotal=0;
+  let verglasTotal=0;
+  let sableTotal=0;
+
+  
+let codeHTML="<table><thead><tr><th>Nom</th><th>Date</th><th>Heure Départ</th><th>Heure fin</th><th>Kilometrage</th><th>Voiture Conduite</th><th>Condition météo</th><th>Etat route</th></tr></thead><tbody>";
+
+  listExperience.forEach(function(item,index){
+    kilomTotal+=parseInt(item.kilom);
+    if(parseInt(item.idMeteo)==1) {soleilTotal+=1};
+    if(parseInt(item.idMeteo)==2) {neigeTotal+=1};
+    if(parseInt(item.idMeteo)==3) {pluieTotal+=1};
+    if(parseInt(item.idMeteo)==4) {brouillardTotal+=1};
+    if(parseInt(item.idMeteo)==5) {verglasTotal+=1};
+    if(parseInt(item.idMeteo)==6) {orageTotal+=1};
+    if(parseInt(item.idMeteo)==7) {nuageTotal+=1};
+    if(parseInt(item.idMeteo)==8) {sableTotal+=1};
+
+    /*let lIdExpCon=item.idExpCon;*/
+    /*let lexRecherchee=expCond.find(expCondElement => expCondElement.idExpCon==lIdExpCon).idExpCon;*/
+
+    let voitureConduit=item.idVoiture;
+    let voitureconduitrecherchee=voiture.find(voitureElement => voitureElement.idVoiture==voitureConduit).Marque;
+    
+    let laMeteo=item.idMeteo;
+    let MeteoRecherche=meteo.find(TheMeteo => TheMeteo.idMeteo==laMeteo).Meteo;
+
+    let laRouto=item.idRoute;
+    let routeRecherche=route.find(TheRoad => TheRoad.idRoute==laRouto).routo;
+
+    /*let LeMonito=item.IdMoniteur;
+    let moniRecherche=Moniteur.find(TheMoni =>TheMoni.IdMoniteur==LeMonito).Nom;*/
+
+    codeHTML+= `<tr><td>${item.Name}</td><td>${item.dateCon}</td>
+      <td>${item.hdepart}</td><td>${item.hfin}</td>
+      <td>${item.kilom}</td><td>${voitureconduitrecherchee}</td>
+      <td>${MeteoRecherche}</td><td>${routeRecherche}</td></tr>`;
+  });
+//forEach sur listeFilms + littéraux de gabarits
+//https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+//https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+codeHTML+="</tbody></table>";
+//écriture dynamique HTML
+//https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML
+
+document.getElementById('main').insertAdjacentHTML("afterbegin",codeHTML);
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>kilomètre parcourue: "+kilomTotal+" Km</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total expérience Temps Ensoleillé: "+soleilTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total expérience Temps par Neige: "+neigeTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total expérience Temps par Pluie: "+pluieTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total expérience Temps par Brouillard: "+brouillardTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total expérience Temps par Verglas: "+verglasTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total experience Temps par Orage: "+orageTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total experience Temps nuageux: "+nuageTotal+"</p>");
+document.getElementById('Bilan').insertAdjacentHTML("beforeend","<p>Total experience Temps Sableux: "+sableTotal+"</p>");
+
+}//fin func
+</script>
+
+
+<style>
+
+table {table-layout: auto;
+  width: 600px;
+  border: 4px solid rgb(230, 193, 46);
+  border-collapse: collapse;
+  margin: 0 auto;
+}	
+th, td {border:2px solid rgb(31, 7, 245);}
+
+#Bilan{
+  font: size 90px;
+  color: rgb(13, 20, 237);
+  text-align: center;
+}
+
+p{
+  font-size: 20px;
+
+}
+.info{
+  font-size: xx-large;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(68, 56, 53);
+  text-align: center;
+  text-decoration: underline;
+}
+img{
+  display:block;
+  margin:  0 auto;
+  width: 100px;
+}
+a{
+  font-weight: 600;
+  color: rgb(250, 3, 32);
+  text-align: center;
+  font-size: 20px;
+  justify-content: space-between;
+}
+body{
+  background-color: darkgray;
+}
+</style>
+</head>
+<body>
+  <header class="tete">
+<nav>
+  <img src="https://img.freepik.com/photos-gratuite/instructeur-conduite-femme-homme-pendant-examen-conduite_52683-101120.jpg?size=626&ext=jpg&ga=GA1.2.2001872541.1684193501&semt=ais">
+	<a href="index.html">[ Saisir Experience Conduite ]</a>
+
+	<a href="javascript:localStorage.removeItem('listeExperience');">[ Effacer tout ]</a>
+</nav>
+</header>
+<article>
+<h1 class="info">BILAN EXPERIENCE</h1>
+<section id="main">
+  <h3 class="info">INFORMATIONS SUR VOS EXPERIENCES CONDUITES</h3>
+  <!--<script>document.write(afficheDistance())</script><br>-->
+</section>
+</article>	
+<footer id="Bilan"> </footer>
+</body>
+</html>
