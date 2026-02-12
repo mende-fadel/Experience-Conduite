@@ -1,328 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-        
-      background-image:linear-gradient(rgb(237, 241, 241),rgb(137, 167, 209));
-        
-          
-      }
-        .champ1 {
-            display: inline-block;
-            width: 120px;
-          }
-
-        input[required]:invalid{color: red;}
-        input[required]:valid{color: rgb(11, 16, 139);}
-
-        fieldset{
-            width: 450px;
-            border: 2px solid;
-             border-radius: 12px;
-             margin: 5px 10px;
-             line-height: 35px;
-             background-color: rgb(74, 177, 214);
-            }
-        legend{color: rgb(8, 8, 8); font-size: 20px;
-        }
-
-        textarea{
-            width: 500px;
-            height: 200px;
-          }
-
-        h1{
-            text-align: center;
-            color: rgb(48, 6, 233);
-            width: 50%;
-            
-          }
-        .copyright {
-            text-align: left;
-            color: rgb(19, 20, 20);
-        }
-        .app{
-            text-align: right;
-        }
-        .lien{
-            display:flex;
-            
-        }
-        .bouton:hover,
-        .bouton:focus{
-            outline-offset: 10px;
-            background-color: #0c66d3;
-            padding: 10px;
-            margin-bottom: 5%;
-            margin-top: 2%;
-            margin-left: 2%;
-
-        }
-        .effacer{
-            background-color: cornsilk;
-            padding: 10px;
-            margin-left: 7%;
-            
-        }
-        img{
-          width: 20%;
-          display: block;
-          
-        }
-        footer{
-          background-color: gray;
-        }
-        header{
-          background-color: gray;
-        }
-
-        @media screen and (min-width:640px) {
-      
-      body{
-        display: grid;
-        grid-template-columns:minmax(160px,18vw) 1fr minmax(160px , 18vw
-        ) ;
-        grid-template-rows: minmax(60px,auto) minmax(120px, 1fr) minmax(60px,auto);
-        gap: 10 px;
-        box-sizing: border-box;
-        padding: 5px;
-  
-      }
-      .container {
-      height:auto;
-      display: flex;
-      justify-content: center;
-      }
-      .haut{
-      display:flex;
-        
-      }
-      .lien{
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 30px;
-        justify-content: center;
-        margin:  0 auto;
-      }
-      
-
-    
-      img{
-        width: 200px;
-      }
-      
-      header{
-        grid-row: 1;
-        grid-column: 1/4;
-      }
-      article{
-        grid-row: 2/4;
-        grid-column: 1/4;
-        
-      }
-      footer{
-        grid-row: 4;
-        grid-column: 1/-1;
-      }
-      
-      }
-
-      /*pour mobile 
-  grid-template-rows:minmax(60px,auto)minmax(120px,1fr)repeat(3,minmax(60px,auto)) */
-  @media screen and (max-width:640px) {
-    body{
-      display: grid;
-      grid-template-rows: minmax(60px,auto)minmax(120px,1fr)repeat(3,minmax(60px,auto));
-      gap: 40px;
-      box-sizing: border-box;
-      padding: 5px;
-      background-image: url("");
-    }
-    
-    header{
-      grid-row: 1;
-
-    }
-    article{
-      grid-row: 2/3;
-
-    }
-    footer{
-      grid-row: 3;
-    }
-    
-  }
-
-
-    </style>
-    <script>
-
-    /*let expCond={"idExpCon":1,"date":"2023-03-28","HeureDépart":"08:00","HeureArrivée":"10:00"} ;*/
-    let meteo=[{"idMeteo":1,"Meteo":"Soleil"}, {"idMeteo":2,"Meteo":"Neige"},{"idMeteo":3,"Meteo":"Pluie"},{"idMeteo":4,"Meteo":"Brouillard"},{"idMeteo":5,"Meteo":"Verglas"},{"idMeteo":6,"Meteo":"Orage"},{"idMeteo":7,"Meteo":"Nuageux"},{"idMeteo":8,"Meteo":"Tempete de sable"}];
-    let Moniteur=[{"IdMoniteur":1,"Nom":"LEFEBRE","Prenom":"JEAN"},{"IdMoniteur":2,"Nom":"LOUIS","Prenom":"JEAN"},{"IdMoniteur":3,"Nom":"CLAUDE","Prenom":"LEROI"},{"IdMoniteur":4,"Nom":"MENSANH","Prenom":"KODJO"}];
-    let voiture=[{"idVoiture":1,"Marque":"Mercerdes"}, {"idVoiture":2,"Marque":"AUDI"},{"idVoiture":3,"Marque":"PEUGEOT"},{"idVoiture":4,"Marque":"RENAULT"},{"idVoiture":5,"Marque":"BMW"},{"idVoiture":6,"Marque":"JEEP"},{"idVoiture":7,"Marque":"TOYOTA"}];
-    let route=[{"idRoute":1,"routo":"Autoroute"},{"idRoute":2,"routo":"Route Communale"},{"idRoute":3,"routo":"Route Nationale"},{"idRoute":4,"routo":"Route Européenne"},{"idRoute":5,"routo":"Route Départementale"}];
-    
-    function SaveConduite(){
-      leNom=document.getElementById('Name').value;
-      //lePrenom=document.getElementById('Lastname').value;
-      AdresseMail=document.getElementById('email').value;
-      leTelephone=document.getElementById('tel').value;
-      lIdExpCon=document.getElementById('idE').value;
-      laDateConduite=document.getElementById('dateCon').value;
-      HeureDepart=document.getElementById('hdepart').value;
-      HeureArrivee=document.getElementById('hfin').value;
-      leKm=document.getElementById('kilom').value;
-      laMeteo=document.getElementById('idMeteo').value;
-      laVoitureConduite=document.getElementById('idVoiture').value;
-      leMoniteur=document.getElementById('IdMoniteur').value;
-      laRoute=document.getElementById('idRoute').value;
-      
-      console.log(`theName:${leNom},
-      TheMail:${AdresseMail},ThePhone:${leTelephone},
-      idExp:${lIdExpCon},Dateconduite:${laDateConduite},
-      heureDep:${HeureDepart},heureArr:${HeureArrivee},
-      kilometre:${leKm},meteo:${laMeteo},Car:${laVoitureConduite},
-      Moni:${leMoniteur},${laRoute}`);
-  
-  listeConduite=new Array();//empty array
-  dataString=localStorage.getItem("listExperience");
-  if(dataString!=null) {listeConduite=JSON.parse(dataString);}
-  newIDConduite=listeConduite.length+1;//identifiant=PK auto incrementé
-  newExp={"idCon":newIDConduite,"Name":leNom,
-  //"Lastname":lePrenom,
-  "email":AdresseMail,
-  "tel":leTelephone,"idE":lIdExpCon,
-  "dateCon":laDateConduite,"hdepart":HeureDepart,
-  "hfin":HeureArrivee,"kilom":leKm,"idMeteo":laMeteo,
-  "idVoiture":laVoitureConduite,"idMoniteur":leMoniteur,"idRoute":laRoute
-  };
-  console.log(newExp);
-  //ajout listeConduite: push()
-  listeConduite.push(newExp);
-  listeConduiteStr=JSON.stringify(listeConduite);
-  localStorage.setItem('listExperience',listeConduiteStr);
-  alert('Experience enrégistré avec succès!');
-  document.getElementById('ExpConWebform').reset();
-    }//fin fun saveConduite()
-    </script>
+    <title>Saisie Expérience - Fadelos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
-      <div class="haut">
-        <img src="https://cdn.icon-icons.com/icons2/577/PNG/256/ExecutiveCar_Black_icon-icons.com_54904.png">
-
-        <h1>EXPERIENCE CONDUITE FADELOS</h1>
-        <!--<a href="slideImage.html">[Voir Le Bilan]</a>-->
-      </div>
+        <nav>
+            <div class="logo">
+                🚗 Experience Conduite
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Saisir</a>
+                <a href="slideImage.html">Voir le Bilan</a>
+            </div>
+        </nav>
     </header>
-    <article>
-      <div class="container">
-        <form id="ExpConWebform">
-            <form action="reponse.php" method="post">
-                <fieldset><legend>Contact</legend>
-                  <span class="champ1">NOM:</span>
-                  <input type="text" required="required" placeholder="Votre Nom et Prenom" id="Name" name="nom"/><br>
-                 <!-- <span class="champ1">PRENOM:</span>
-                  <input type="text" required="required" placeholder="Votre prenom" id="Lastmane" name="prenom"/><br>-->                  <span class="champ1">ADRESSE MAIL:</span>
-                  <input type="email" required="required" placeholder="Mettre adresse mail" id="email" pattern=".+@.+\..+" size="25" name="mail"/><br>
-                  <span class="champ1">TEL:</span>
-                  <input type="tel" placeholder="Insérer votre numero de telephone ici" id="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
-                </fieldset>
-                <fieldset>
-                    <legend>Experience</legend>
-                    <span class="champ1">Level:</span>
-                    <input type="number" required="required" id="idE"><br>
-                
-                    <span class="champ1">Date_Conduite:</span>
-                    <input type="datetime-local" required="required" placeholder="Saisir la date de conduite" id="dateCon"><br>
-                    <span class="champ1">Heure_Départ:</span>
-                    <input type="time" required="required" id="hdepart"><br>
-                    <span class="champ1">Heure_Fin</span>
-                    <input type="time" required="required" id="hfin"><br>
-                    <span class="champ1">Km:</span>
-                    <input type="number" required="required" id="kilom" step="0.1" min="0"><br>
-        
-                    <span class="champ1">Météo:</span>
-                    <select name="meteo" id="idMeteo">
-                        <option value="">--Choix--</option>
-                       
-                    </select><br>
-                    <script>
-                      meteo.forEach(function(item,index){
-                     let lOptionMeteo = `<option value="${item.idMeteo}">${item.Meteo}</option>`;
-                      document.getElementById("idMeteo").insertAdjacentHTML('beforeend', lOptionMeteo);
-                      });
-                    </script>
-                    <span class="champ1">Voiture_Conduite:</span>
-                    <select name="voiture" id="idVoiture">
-                      <option value="">--Choix--</option>
-                      
 
-                    </select><br>
-                    <script>
-                      voiture.forEach(function(item,index) {
-                     let lOptionVoiture = `<option value="${item.idVoiture}">${item.Marque}</option>`;
-                      document.getElementById("idVoiture").insertAdjacentHTML('beforeend', lOptionVoiture);
-                      });
-                    </script>
-                   
-
-                    <span class="champ1">Moniteur:</span>
-                    <select name="moniteur" id="IdMoniteur">
-                    <option value="">--Choix--</option>
-                    
-                    </select><br>
-
-                    <script>
-                      Moniteur.forEach(function(item,index) {
-                     let lOptionMoniteur = `<option value="${item.IdMoniteur}">${item.Nom} ${item.Prenom}</option>`;
-                      document.getElementById("IdMoniteur").insertAdjacentHTML('beforeend', lOptionMoniteur);
-                      });
-                    </script>
-
-                    <span class="champ1">Type De Route:</span>
-                     <select name="road" id="idRoute">
-                     <option value="">--Choix--</option>
-                     
-                     </select><br>
- 
-                     <script>
-                      route.forEach(function(item,index){
-                      let lOptionRoute = `<option value="${item.idRoute}">${item.routo}</option>`;
-                       document.getElementById("idRoute").insertAdjacentHTML('beforeend', lOptionRoute);
-                       });
-                     </script> 
-
-
-                    <span class="champ1">Point de Départ:</span>
-                    <input type="text" required="required" placeholder="Departure place" id="Name" name="depart"/><br>
-                    
-                    <span class="champ1">Point d'Arrivée:</span>
-                    <input type="text" required="required" placeholder="Arrival place" id="Name" name="depart"/><br>
-                    
-                    <button class="bouton" type="button" onclick="SaveConduite()">Enregister</button>
-                    <button class="effacer" type="reset">Effacer</button>
-
-                </fieldset>
-                <div class="lien">
-                <a href="slideImage.html">[Voir Le Bilan]</a>
-                <!--<button class="bouton" type="button" onclick="SaveConduite()">Enregister</button>
-                <button class="effacer" type="reset">Effacer</button>-->
+    <div class="container">
+        <div class="card">
+            <h1>Nouvelle Session</h1>
+            <form id="driveForm">
+                <div class="form-group full-width">
+                    <label for="name">Conducteur</label>
+                    <input type="text" id="name" placeholder="Nom complet" required>
                 </div>
-              </form>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="exemple@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="tel">Téléphone</label>
+                    <input type="tel" id="tel" placeholder="06 00 00 00 00">
+                </div>
 
-              
-    </article>
-    <footer>
-         <div class="copyright">&copy;&nbsp;2023&nbsp;Université de strasbourg<br/>
-            <a href="mendefadelos16@gmail.com">Contact</a>
-            <h3>MENDE fadel Page released the 21-04-2023 </h3>
-         </div>
-    </footer>
+                <div class="form-group">
+                    <label for="dateCon">Date</label>
+                    <input type="date" id="dateCon" required>
+                </div>
+                <div class="form-group">
+                    <label for="kilom">Distance (Km)</label>
+                    <input type="number" id="kilom" step="0.1" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="hdepart">Heure Départ</label>
+                    <input type="time" id="hdepart" required>
+                </div>
+                <div class="form-group">
+                    <label for="hfin">Heure Arrivée</label>
+                    <input type="time" id="hfin" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="idMeteo">Météo</label>
+                    <select id="idMeteo" required>
+                        <option value="">-- Choisir --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="idVoiture">Véhicule</label>
+                    <select id="idVoiture" required>
+                        <option value="">-- Choisir --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="idRoute">Type de Route</label>
+                    <select id="idRoute" required>
+                        <option value="">-- Choisir --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="idMoniteur">Moniteur</label>
+                    <select id="idMoniteur" required>
+                        <option value="">-- Choisir --</option>
+                    </select>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn-primary" onclick="saveDrive()">Enregistrer la session</button>
+                    <button type="reset" class="btn-secondary">Effacer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- DONNÉES DE RÉFÉRENCE ---
+        const dataRef = {
+            meteo: [
+                {id: 1, label: "Soleil ☀️"}, {id: 2, label: "Neige ❄️"}, {id: 3, label: "Pluie 🌧️"},
+                {id: 4, label: "Brouillard 🌫️"}, {id: 5, label: "Verglas 🧊"}, {id: 6, label: "Orage ⛈️"},
+                {id: 7, label: "Nuageux ☁️"}, {id: 8, label: "Tempête de sable 🏜️"}
+            ],
+            voitures: [
+                {id: 1, label: "Mercedes"}, {id: 2, label: "Audi"}, {id: 3, label: "Peugeot"},
+                {id: 4, label: "Renault"}, {id: 5, label: "BMW"}, {id: 6, label: "Jeep"}, {id: 7, label: "Toyota"}
+            ],
+            routes: [
+                {id: 1, label: "Autoroute"}, {id: 2, label: "Route Communale"},
+                {id: 3, label: "Route Nationale"}, {id: 4, label: "Route Européenne"}, {id: 5, label: "Route Départementale"}
+            ],
+            moniteurs: [
+                {id: 1, label: "LEFEBRE Jean"}, {id: 2, label: "LOUIS Jean"},
+                {id: 3, label: "CLAUDE Leroi"}, {id: 4, label: "MENSANH Kodjo"}
+            ]
+        };
+
+        // --- INITIALISATION ---
+        window.onload = function() {
+            populateSelect('idMeteo', dataRef.meteo);
+            populateSelect('idVoiture', dataRef.voitures);
+            populateSelect('idRoute', dataRef.routes);
+            populateSelect('idMoniteur', dataRef.moniteurs);
+        };
+
+        function populateSelect(elementId, array) {
+            const select = document.getElementById(elementId);
+            array.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item.label;
+                select.appendChild(option);
+            });
+        }
+
+        // --- SAUVEGARDE ---
+        function saveDrive() {
+            // Récupération des valeurs
+            const form = document.getElementById('driveForm');
+            
+            // Validation simple HTML5
+            if (!form.checkValidity()) {
+                alert("Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
+
+            const newEntry = {
+                id: Date.now(), // ID unique basé sur l'heure
+                nom: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                tel: document.getElementById('tel').value,
+                date: document.getElementById('dateCon').value,
+                hDepart: document.getElementById('hdepart').value,
+                hFin: document.getElementById('hfin').value,
+                km: parseFloat(document.getElementById('kilom').value),
+                meteoId: document.getElementById('idMeteo').value,
+                voitureId: document.getElementById('idVoiture').value,
+                routeId: document.getElementById('idRoute').value,
+                moniteurId: document.getElementById('idMoniteur').value
+            };
+
+            // Gestion du LocalStorage
+            let history = JSON.parse(localStorage.getItem('listExperience')) || [];
+            history.push(newEntry);
+            localStorage.setItem('listExperience', JSON.stringify(history));
+
+            alert('✅ Expérience enregistrée avec succès !');
+            form.reset();
+            
+            // Optionnel : rediriger vers le bilan
+            // window.location.href = "slideImage.html";
+        }
+    </script>
 </body>
 </html>
